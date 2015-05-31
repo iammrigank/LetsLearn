@@ -61,11 +61,13 @@ public class HomePage extends ActionBarActivity {
         switch(buttonClicked) {
             case R.id.button_learn_alphabets:
                 // start that intent
-                lessonTypeIntent = new Intent(this, LearnAlphabetsActivity.class);
+                lessonTypeIntent = new Intent(this, LearnAlphaNumActivity.class);
+                lessonTypeIntent.putExtra("alphabet",true);
                 break;
             case R.id.button_learn_numbers:
                 //start numbers wala intent
-                lessonTypeIntent = new Intent(this, LearnNumbersActivity.class);
+                lessonTypeIntent = new Intent(this, LearnAlphaNumActivity.class);
+                lessonTypeIntent.putExtra("alphabet",false);
                 break;
             case R.id.button_quiz:
                 // start quiz wala intent

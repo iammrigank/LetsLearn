@@ -22,7 +22,7 @@
         android:id="@+id/button_learn_numbers"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:onClick="startLessonActivity "/>
+        android:onClick="startLessonActivity"/>
 
     <Button
         android:layout_width="wrap_content"
