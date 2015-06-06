@@ -7,4 +7,11 @@
     <string name="title_activity_learn_numbers">LearnNumbersActivity</string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="title_activity_alphabet_pager">AlphabetPager</string>
+    <string name="title_activity_sub_alphabet_pager">SubAlphabetPager</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_alphabet_lesson">AlphabetLessonActivity</string>
+    <string name="title_activity_number_lesson">NumberLessonActivity</string>
+    
 </resources>

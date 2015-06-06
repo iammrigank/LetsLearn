@@ -2,16 +2,18 @@ package com.example.mriganka.letslearn;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
-public class HomePage extends ActionBarActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class HomePage extends AppCompatActivity {
 
     Handler handlerTimer = new Handler();
 
@@ -20,6 +22,11 @@ public class HomePage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
 
+        animateSplashScreen();
+        initiateButtonListeners();
+    }
+
+    private void animateSplashScreen() {
         // Showing the splash screen for 2-3 seconds
         final View splashLayout = (RelativeLayout) findViewById(R.id.splashLayout);
         splashLayout.bringToFront();
@@ -32,50 +39,35 @@ public class HomePage extends ActionBarActivity {
         }, 3000);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lesson_menu, menu);
-        return true;
-    }
+    private void initiateButtonListeners() {
+        initializeButtonIdToIntentMap();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Button pressedButton;
+        for(final int buttonId : buttonToIntentMap.keySet()) {
+            pressedButton = getButtonFromId(buttonId);
+            pressedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(buttonToIntentMap.get(buttonId));
+                }
+            });
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    public void startLessonActivity(View view) {
-        Intent lessonTypeIntent;
+    private void initializeButtonIdToIntentMap() {
+        buttonToIntentMap = new HashMap<Integer, Intent>();
 
-        int buttonClicked = view.getId();
-        switch(buttonClicked) {
-            case R.id.button_learn_alphabets:
-                // start that intent
-                lessonTypeIntent = new Intent(this, LearnAlphabetsActivity.class);
-                break;
-            case R.id.button_learn_numbers:
-                //start numbers wala intent
-                lessonTypeIntent = new Intent(this, LearnNumbersActivity.class);
-                break;
-            case R.id.button_quiz:
-                // start quiz wala intent
-                lessonTypeIntent = new Intent(this, QuizActivity.class);
-                break;
-            default:
-                lessonTypeIntent = new Intent(this, HomePage.class);
-        }
-
-        // Starting that new Activity now
-        startActivity(lessonTypeIntent);
+        buttonToIntentMap.put(R.id.button_homepage_learn_alphabets,
+                new Intent(this, _AlphabetLessonActivity.class));
+        buttonToIntentMap.put(R.id.button_homepage_learn_numbers,
+                new Intent(this, _NumberLessonActivity.class));
+        buttonToIntentMap.put(R.id.button_homepage_quiz,
+                new Intent(this, QuizActivity.class));
     }
+
+    private Button getButtonFromId(int buttonId) {
+        return (Button) findViewById(buttonId);
+    }
+
+    private Map<Integer, Intent> buttonToIntentMap;
 }
